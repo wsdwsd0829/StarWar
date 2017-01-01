@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, ErrorParse) {
+    ErrorParseFailed = 1001
+};
+
 @protocol ParserProtocol <NSObject>
 
 -(void)parse: (id) responseObject withHandler: (void(^)(NSArray* objects, NSError* error)) handler;

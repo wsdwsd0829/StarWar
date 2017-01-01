@@ -44,7 +44,9 @@
     [userDefaults setObject:val forKey:key];
     [userDefaults synchronize];
 }
+
 -(NSString*) stringForKey:(NSString*) key{
     return [userDefaults stringForKey:key];
 }
+
 @end

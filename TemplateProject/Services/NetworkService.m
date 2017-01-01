@@ -58,7 +58,7 @@ NSString* const apiKey = @"d33ef16f7b9d67141aa1f5b164b59101";//@"d5c7df3552b89d1
     }];
 }
 
--(void)loadPhotosWithType:(ImageListType)type withHandler:(FlickrImageListHandler)handler {
+-(void)loadPhotosWithType:(ImageListType)type withHandler:(NetworkResultHandler)handler {
     switch (type) {
         case ImageListTypeRecent:
             [self loadRecentPhotos:handler];
@@ -69,7 +69,7 @@ NSString* const apiKey = @"d33ef16f7b9d67141aa1f5b164b59101";//@"d5c7df3552b89d1
     }
 }
 
--(void) loadRecentPhotos: (FlickrImageListHandler)handler {
+-(void) loadRecentPhotos: (NetworkResultHandler)handler {
    // NSLog(@"Recent Images Page Num: %lu", (unsigned long)pageNum);
     NSUInteger offset = pageCount * pageNum;
     NSString* query = [NSString stringWithFormat:@"select * from flickr.photos.recent(%ld,%ld) where api_key='%@'", (long)offset, (long)pageCount, apiKey];
@@ -78,7 +78,7 @@ NSString* const apiKey = @"d33ef16f7b9d67141aa1f5b164b59101";//@"d5c7df3552b89d1
     [self p_fetchWithParams:params withHandler:handler];
 }
 
--(void) loadInterestingPhotos: (FlickrImageListHandler) handler {
+-(void) loadInterestingPhotos: (NetworkResultHandler) handler {
    // NSLog(@"Interesting Images Page Num: %lu", (unsigned long)pageNum);
     NSUInteger offset = pageCount * pageNum;
     NSString* query = [NSString stringWithFormat:@"select * from flickr.photos.interestingness(%ld,%ld) where api_key='%@'", (long)offset, (long)pageCount, apiKey];
@@ -88,7 +88,7 @@ NSString* const apiKey = @"d33ef16f7b9d67141aa1f5b164b59101";//@"d5c7df3552b89d1
 }
 
 //private method that use apiClient to fetch Data and use parser to get object (can pare async)
--(void) p_fetchWithParams: (NSDictionary*) params withHandler:(FlickrImageListHandler) handler {
+-(void) p_fetchWithParams: (NSDictionary*) params withHandler:(NetworkResultHandler) handler {
     pageNum += 1; //how to deal wich if previous page load fails
     [apiClient fetchWithParams:params withApi: @"v1/public/yql" withHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (!error && ((NSHTTPURLResponse*)response).statusCode == 200) {

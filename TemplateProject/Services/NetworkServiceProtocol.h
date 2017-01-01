@@ -5,12 +5,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^FlickrImageListHandler)(NSArray* images, NSError* error);
+typedef NS_ENUM(NSUInteger, ErrorNetwork) {
+    ErrorNetworkFail = 1001
+};
+
+typedef void(^NetworkResultHandler)(NSArray* images, NSError* error);
 
 @protocol NetworkServiceProtocol <NSObject>
 
 -(void)loadImageWithUrlString: (NSString*) urlString withHandler:(void(^)(NSData* data, NSError* error))handler;
 
--(void)loadPhotosWithType: (ImageListType)type withHandler:(FlickrImageListHandler) handler;
+-(void)loadPhotosWithType: (ImageListType)type withHandler:(NetworkResultHandler) handler;
 
 @end

@@ -16,4 +16,8 @@ NSString* const kUserDefaultsImageListInteresting = @"kUserDefaultsImageListInte
 
 NSString* const kNetworkOfflineToOnline = @"kNetworkOfflineToOnline";
 
+NSString* const kErrorDomainDisk = @"kErrorDomainDisk";
+NSString* const kErrorDomainParse = @"kErrorDomainParse";
+NSString* const kErrorDomainNetwork = @"kErrorDomainNetwork";
+
 @end
