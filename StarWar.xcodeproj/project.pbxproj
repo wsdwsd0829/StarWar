@@ -32,8 +32,7 @@
 		0D07BF311E18D78D00400F81 /* PersistService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF301E18D78D00400F81 /* PersistService.m */; };
 		0D60526F1E2032D2006BE658 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D60526E1E2032D2006BE658 /* EventCell.m */; };
 		0D6052711E2032E3006BE658 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D6052701E2032E3006BE658 /* EventCell.xib */; };
-		0D60529D1E2091E6006BE658 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D60529C1E2091E6006BE658 /* EventView.m */; };
-		0D60529F1E2091F1006BE658 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D60529E1E2091F1006BE658 /* EventView.xib */; };
+		0DC538DE1E2191BC00A7E0B4 /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538DD1E2191BC00A7E0B4 /* TestCell.m */; };
 		C7D389B859F24BFB3E32F7FB /* Pods_StarWar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F599E027C7F3B72AAA791E /* Pods_StarWar.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,9 +92,8 @@
 		0D60526D1E2032D2006BE658 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		0D60526E1E2032D2006BE658 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		0D6052701E2032E3006BE658 /* EventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
-		0D60529B1E2091E6006BE658 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
-		0D60529C1E2091E6006BE658 /* EventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
-		0D60529E1E2091F1006BE658 /* EventView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventView.xib; path = Animators/EventView.xib; sourceTree = "<group>"; };
+		0DC538DC1E2191BC00A7E0B4 /* TestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
+		0DC538DD1E2191BC00A7E0B4 /* TestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
 		3CF7E481BCCA0D7C0CFDC91E /* Pods-StarWar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarWar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StarWar/Pods-StarWar.debug.xcconfig"; sourceTree = "<group>"; };
 		52F599E027C7F3B72AAA791E /* Pods_StarWar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarWar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FA357986B59B15F6E0D1CB /* Pods_StarWar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarWar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,12 +176,11 @@
 			isa = PBXGroup;
 			children = (
 				0D07BF081E18B83600400F81 /* Animators */,
-				0D60529E1E2091F1006BE658 /* EventView.xib */,
 				0D60526D1E2032D2006BE658 /* EventCell.h */,
 				0D60526E1E2032D2006BE658 /* EventCell.m */,
 				0D6052701E2032E3006BE658 /* EventCell.xib */,
-				0D60529B1E2091E6006BE658 /* EventView.h */,
-				0D60529C1E2091E6006BE658 /* EventView.m */,
+				0DC538DC1E2191BC00A7E0B4 /* TestCell.h */,
+				0DC538DD1E2191BC00A7E0B4 /* TestCell.m */,
 			);
 			name = Views;
 			path = ../StarWar/Views;
@@ -361,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D6052711E2032E3006BE658 /* EventCell.xib in Resources */,
-				0D60529F1E2091F1006BE658 /* EventView.xib in Resources */,
 				0D07BECF1E18B47800400F81 /* LaunchScreen.storyboard in Resources */,
 				0D07BECC1E18B47800400F81 /* Assets.xcassets in Resources */,
 				0D07BECA1E18B47800400F81 /* Main.storyboard in Resources */,
@@ -430,7 +426,6 @@
 				0D07BF161E18B8AB00400F81 /* NetworkService.m in Sources */,
 				0D07BF311E18D78D00400F81 /* PersistService.m in Sources */,
 				0D07BEC71E18B47800400F81 /* ViewController.m in Sources */,
-				0D60529D1E2091E6006BE658 /* EventView.m in Sources */,
 				0D07BF121E18B87500400F81 /* EventsViewModel.m in Sources */,
 				0D07BEC41E18B47800400F81 /* AppDelegate.m in Sources */,
 				0D07BF0E1E18B85F00400F81 /* HorizontalAnimator.m in Sources */,
@@ -440,6 +435,7 @@
 				0D07BEC11E18B47800400F81 /* main.m in Sources */,
 				0D07BEE91E18B59500400F81 /* Constants.m in Sources */,
 				0D07BF1A1E18B8B300400F81 /* CacheService.m in Sources */,
+				0DC538DE1E2191BC00A7E0B4 /* TestCell.m in Sources */,
 				0D60526F1E2032D2006BE658 /* EventCell.m in Sources */,
 				0D07BEEA1E18B59500400F81 /* UIViewController+Navigations.m in Sources */,
 				0D07BEEB1E18B59500400F81 /* Utils.m in Sources */,

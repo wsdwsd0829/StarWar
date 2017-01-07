@@ -11,7 +11,7 @@
 #import "EventCell.h"
 #import "EventsViewModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "TestCell.h"
 
 NSString* const EventCellIdentifier = @"EventCell";
 
@@ -47,24 +47,25 @@ NSString* const EventCellIdentifier = @"EventCell";
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   EventCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:EventCellIdentifier forIndexPath:indexPath];
+   // TestCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TestCell" forIndexPath:indexPath];
+//    cell.label.text = @"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";
+    
+    EventCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:EventCellIdentifier forIndexPath:indexPath];
     cell.timeLabel.text = [self.viewModel timeLabelForIndex:indexPath.row];
-    cell.titleLabel.text = [self.viewModel titleForIndex:indexPath.row];
+//
+    cell.titleLabel.text = @"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";//[self.viewModel titleForIndex:indexPath.row];
     cell.locationLabel.text = [self.viewModel locationForIndex:indexPath.row];
     cell.descLabel.text = [self.viewModel descForIndex:indexPath.row];
     NSString* imageUrl = [self.viewModel imageUrlForIndex:indexPath.row];
-    NSLog(@"%f", cell.imageView.frame.size.height);
+//    NSLog(@"%f", cell.imageView.frame.size.height);
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.imageView.layer.masksToBounds=YES;
-    
+//
     if(![imageUrl isEqual: [NSNull null]]) {
-//         [self.viewModel loadImageForIndexPath:indexPath withHandler:^(UIImage *image) {
-//             cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//             cell.imageView.layer.masksToBounds=YES;
-//            cell.imageView.image = image;
-//        }];
+
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString: imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
+//
     return cell;
 }
 

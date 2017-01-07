@@ -1,26 +1,14 @@
 //
-//  EventCell.m
+//  TestCell.m
 //  StarWar
 //
-//  Created by Sida Wang on 1/6/17.
+//  Created by Sida Wang on 1/7/17.
 //  Copyright © 2017 Sida Wang. All rights reserved.
 //
 
-#import "EventCell.h"
-@interface EventCell()
-@end
-@implementation EventCell
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-       // self.view = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] firstObject];
-        //self.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return self;
-}
+#import "TestCell.h"
 
-
+@implementation TestCell
 
 -(UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
     UICollectionViewLayoutAttributes* attr = [[super preferredLayoutAttributesFittingAttributes:layoutAttributes] copy];
@@ -45,7 +33,5 @@
     self.imageWidth.constant = self.contentWidth.constant;
     return attr;
 }
-
-
 
 @end
