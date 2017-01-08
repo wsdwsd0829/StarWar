@@ -10,5 +10,4 @@
 #import "PersistServiceProtocol.h"
 
 @interface PersistService : NSObject <PersistServiceProtocol>
-
 @end

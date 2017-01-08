@@ -8,21 +8,50 @@
 
 #import "DetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImage+Helper.h"
+#import "OpenPageAnimator.h"
+#import "ViewController.h"
+@interface DetailViewController () <UIScrollViewDelegate,UIViewControllerTransitioningDelegate>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imgTop;
+@property (nonatomic) CGFloat minHeight;
+@property (nonatomic) UIView* dummyTitle;
+@property (nonatomic) UIView* dummyNavTitle;
 
-@interface DetailViewController ()
+@property (nonatomic) CGSize labelOffset;
 
+//for label animate
+@property (nonatomic) CGFloat maxProgress;
+@property (nonatomic) CGFloat startX;
+@property (nonatomic) CGFloat startY;
 @end
 
 @implementation DetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //transparent nav bar
+    self.scrollView.delegate = self;
+    self.scrollView.alwaysBounceVertical = YES;
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
-    
+    self.transitioningDelegate = self;
+
+    //self.scrollView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
+    [self transparentNavigationBar];
     [self updateUI];
+    self.navigationBar.topItem.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    self.dummyNavTitle = self.navigationBar.topItem.titleView;
+    CGFloat maxX = (self.navigationBar.topItem.titleView.center.x - self.titleLabel.center.x);
+    CGFloat maxY = 20;
+    self.labelOffset = CGSizeMake(maxX, maxY);
+}
+-(void)transparentNavigationBar {
+    [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationBar.shadowImage = [UIImage new];
+    self.navigationBar.translucent = YES;
+}
+
+- (BOOL) prefersStatusBarHidden {
+    return YES;
 }
 
 -(void)viewDidLayoutSubviews {
@@ -33,6 +62,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)share:(id)sender {
+   UIActivityViewController* avc = [[UIActivityViewController alloc] initWithActivityItems:@[self.titleLabel.text, self.timeLabel.text, self.imageView.image, self.locationLabel.text] applicationActivities:nil];
+    [self presentViewController:avc animated:YES completion:nil];
+}
 
 -(IBAction)back:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -41,6 +74,7 @@
 -(void)updateUI {
     self.timeLabel.text = [self.viewModel timeLabel];
     self.titleLabel.text = [self.viewModel title]; //@"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";
+    self.phoneLabel.text = [self.viewModel phone];
     self.locationLabel.text = [self.viewModel location];
     self.descLabel.text = [self.viewModel desc];
     
@@ -49,25 +83,115 @@
     self.imageView.layer.masksToBounds=YES;
     if(![imageUrl isEqual: [NSNull null]]) {
         [self.imageView sd_setImageWithURL:[NSURL URLWithString: imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_nomoon"]];
+    }
+    CAGradientLayer *gradientMask = [CAGradientLayer layer];
+    CGRect newFrame = [UIScreen mainScreen].bounds;
+    newFrame.size.height = self.imageView.bounds.size.height;
+    gradientMask.frame = newFrame;
+    gradientMask.colors = @[(id)[UIColor whiteColor].CGColor,
+                            (id)[UIColor clearColor].CGColor];
+    self.imageView.layer.mask = gradientMask;
+    CGFloat width = self.view.bounds.size.width;
+    self.minHeight = self.imageView.image.size.height*width/self.imageView.image.size.width;
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CAGradientLayer *gradientMask = [CAGradientLayer layer];
+    CGRect newFrame = [UIScreen mainScreen].bounds;
+    newFrame.size.height = self.imageView.bounds.size.height;
+    gradientMask.frame = newFrame;
+    gradientMask.colors = @[(id)[UIColor whiteColor].CGColor,
+                            (id)[UIColor clearColor].CGColor];
+    self.imageView.layer.mask = gradientMask;
+
+    //NSLog(@"ContentOffset: %f", self.scrollView.contentOffset.y);
+    CGFloat insetY = scrollView.contentOffset.y;
+    if(scrollView.contentOffset.y < 0) {
+        //self.scrollView.contentInset = UIEdgeInsetsMake(insetY, 0, 0, 0);
+        CGFloat progress = fabs(insetY) / 200;
+        self.imageView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(0, insetY), CGAffineTransformMakeScale(1 + progress, 1 + progress));
+    } else {
+        CGFloat progress = fabs(insetY) / 300;
+        if(insetY < self.minHeight) {
+            self.imageHeight.constant = 300*(1-progress);
+        } else if(insetY < 250-44) {
+            self.imgTop.constant = (self.minHeight-insetY) / 1;
+        } else if(250-insetY <= 44 && 250-insetY > 0){
+            self.imageView.alpha = (250 - insetY) / 44;
+        }
+        CGPoint center = [self.view convertPoint:self.titleLabel.center fromView:self.contentView];
+        center.y += insetY;
+
+        if(insetY >= 249.5 && insetY <= 250.5) {
+            //titleLabel 's center dertermin max progress
+            self.maxProgress = center.y-22; //max y distance to animate
+            self.startX = center.x;
+            self.startY = center.y;
+        }
+        if (insetY-250 > 0 && (insetY-250) < self.maxProgress ) {
+            if(!self.dummyTitle) {
+                UIView* label = [self.titleLabel snapshotViewAfterScreenUpdates:NO];
+                
+                label.center = center;
+                self.titleLabel.hidden = YES;
+                self.dummyTitle = label;
+                [self.view addSubview:label];
+                NSLog(@"%f %f", self.dummyTitle.center.x, self.dummyTitle.center.y);
+
+            }
+            CGFloat maxX = self.scrollView.bounds.size.width/2 - self.startX;
+            CGFloat maxY = self.startY - 22;
+            CGFloat progress = (insetY-250)/self.maxProgress;
+            CGPoint newCenter = self.dummyTitle.center;
+            newCenter.y = self.dummyTitle.center.y - (insetY-250);
+            newCenter.x = self.dummyTitle.center.x + (insetY-250);
+//            self.dummyTitle.center = newCenter;
+            CGAffineTransform translate = CGAffineTransformTranslate(CGAffineTransformIdentity, maxX*progress, -maxY*progress);
+            
+            CGAffineTransform scale = CGAffineTransformMakeScale(1 - progress*0.5, 1);
+            self.dummyTitle.transform = CGAffineTransformConcat(translate, scale);
+            
+            CGFloat navColorAlpha = progress;
+            UIColor* col = [UIColor colorWithWhite:1 alpha:navColorAlpha];
+            UIImage* image = [UIImage imageWithColor:col];
+            [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+            
+            NSLog(@"progress: %f", progress);
+
+            //self.navigationBar.translucent = NO;
+        } else if ((insetY-250) <= 0) {
+            [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        } else if ((insetY-250) > self.maxProgress) {
+            UIColor* col = [UIColor colorWithWhite:1 alpha:1];
+            UIImage* image = [UIImage imageWithColor:col];
+            [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        }
+            //label.center.y
+            
         
-        CAGradientLayer *gradientMask = [CAGradientLayer layer];
-        CGRect newFrame = [UIScreen mainScreen].bounds;
-        newFrame.size.height = self.imageView.bounds.size.height;
-        gradientMask.frame = newFrame;
-        gradientMask.colors = @[(id)[UIColor whiteColor].CGColor,
-                                (id)[UIColor clearColor].CGColor];
-        self.imageView.layer.mask = gradientMask;
+        if(insetY < 250) {
+            self.titleLabel.hidden = NO;
+            if(self.dummyTitle) {
+                [self.dummyTitle removeFromSuperview];
+                self.dummyTitle = nil;
+            }
+        }
+    }
+    
+}
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    if([presented isKindOfClass:[DetailViewController class]]) {
+        OpenPageAnimator* opa = [[OpenPageAnimator alloc] init];
+        opa.presenting = YES;
+        opa.delegate = (id<OpenSourceProtocol>)[(UINavigationController*)presenting topViewController];
+        
+        return opa;
+    }else {
+        return nil;
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

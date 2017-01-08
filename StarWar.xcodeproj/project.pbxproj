@@ -24,7 +24,6 @@
 		0D07BF001E18B80100400F81 /* PereferenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BEFE1E18B80100400F81 /* PereferenceService.m */; };
 		0D07BF031E18B81200400F81 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF021E18B81200400F81 /* Event.m */; };
 		0D07BF071E18B82100400F81 /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF051E18B82100400F81 /* Parser.m */; };
-		0D07BF0E1E18B85F00400F81 /* HorizontalAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF0A1E18B85F00400F81 /* HorizontalAnimator.m */; };
 		0D07BF0F1E18B85F00400F81 /* OpenPageAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF0C1E18B85F00400F81 /* OpenPageAnimator.m */; };
 		0D07BF121E18B87500400F81 /* EventsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF111E18B87500400F81 /* EventsViewModel.m */; };
 		0D07BF161E18B8AB00400F81 /* NetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF141E18B8AB00400F81 /* NetworkService.m */; };
@@ -33,6 +32,8 @@
 		0DC538DE1E2191BC00A7E0B4 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538DD1E2191BC00A7E0B4 /* EventCell.m */; };
 		0DC538E11E219CA400A7E0B4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538E01E219CA400A7E0B4 /* DetailViewController.m */; };
 		0DC538E41E219DF600A7E0B4 /* EventViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538E31E219DF600A7E0B4 /* EventViewModel.m */; };
+		0DC5390D1E21C47800A7E0B4 /* UIImage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5390C1E21C47800A7E0B4 /* UIImage+Helper.m */; };
+		0DC5390F1E21D02400A7E0B4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC5390E1E21D02400A7E0B4 /* Social.framework */; };
 		C7D389B859F24BFB3E32F7FB /* Pods_StarWar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F599E027C7F3B72AAA791E /* Pods_StarWar.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,8 +73,6 @@
 		0D07BF041E18B82100400F81 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0D07BF051E18B82100400F81 /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		0D07BF061E18B82100400F81 /* ParserProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserProtocol.h; sourceTree = "<group>"; };
-		0D07BF091E18B85F00400F81 /* HorizontalAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalAnimator.h; sourceTree = "<group>"; };
-		0D07BF0A1E18B85F00400F81 /* HorizontalAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalAnimator.m; sourceTree = "<group>"; };
 		0D07BF0B1E18B85F00400F81 /* OpenPageAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPageAnimator.h; sourceTree = "<group>"; };
 		0D07BF0C1E18B85F00400F81 /* OpenPageAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenPageAnimator.m; sourceTree = "<group>"; };
 		0D07BF0D1E18B85F00400F81 /* OpenSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenSourceProtocol.h; sourceTree = "<group>"; };
@@ -95,6 +94,9 @@
 		0DC538E01E219CA400A7E0B4 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		0DC538E21E219DF600A7E0B4 /* EventViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewModel.h; sourceTree = "<group>"; };
 		0DC538E31E219DF600A7E0B4 /* EventViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewModel.m; sourceTree = "<group>"; };
+		0DC5390B1E21C47800A7E0B4 /* UIImage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Helper.h"; sourceTree = "<group>"; };
+		0DC5390C1E21C47800A7E0B4 /* UIImage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Helper.m"; sourceTree = "<group>"; };
+		0DC5390E1E21D02400A7E0B4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3CF7E481BCCA0D7C0CFDC91E /* Pods-StarWar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarWar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StarWar/Pods-StarWar.debug.xcconfig"; sourceTree = "<group>"; };
 		52F599E027C7F3B72AAA791E /* Pods_StarWar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarWar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FA357986B59B15F6E0D1CB /* Pods_StarWar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarWar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DC5390F1E21D02400A7E0B4 /* Social.framework in Frameworks */,
 				C7D389B859F24BFB3E32F7FB /* Pods_StarWar.framework in Frameworks */,
 				0D01FEACB2BC1DDA99AA30D8 /* Pods_StarWar.framework in Frameworks */,
 			);
@@ -119,6 +122,7 @@
 		04BB54EAE63A6961F76F0648 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DC5390E1E21D02400A7E0B4 /* Social.framework */,
 				52F599E027C7F3B72AAA791E /* Pods_StarWar.framework */,
 				A5FA357986B59B15F6E0D1CB /* Pods_StarWar.framework */,
 			);
@@ -269,6 +273,8 @@
 				0D07BEE61E18B59500400F81 /* Utils.m */,
 				0D07BEE71E18B59500400F81 /* Utils+DDHUI.h */,
 				0D07BEE81E18B59500400F81 /* Utils+DDHUI.m */,
+				0DC5390B1E21C47800A7E0B4 /* UIImage+Helper.h */,
+				0DC5390C1E21C47800A7E0B4 /* UIImage+Helper.m */,
 			);
 			name = Helpers;
 			path = ../StarWar/Helpers;
@@ -277,8 +283,6 @@
 		0D07BF081E18B83600400F81 /* Animators */ = {
 			isa = PBXGroup;
 			children = (
-				0D07BF091E18B85F00400F81 /* HorizontalAnimator.h */,
-				0D07BF0A1E18B85F00400F81 /* HorizontalAnimator.m */,
 				0D07BF0B1E18B85F00400F81 /* OpenPageAnimator.h */,
 				0D07BF0C1E18B85F00400F81 /* OpenPageAnimator.m */,
 				0D07BF0D1E18B85F00400F81 /* OpenSourceProtocol.h */,
@@ -429,7 +433,6 @@
 				0D07BEC71E18B47800400F81 /* ViewController.m in Sources */,
 				0D07BF121E18B87500400F81 /* EventsViewModel.m in Sources */,
 				0D07BEC41E18B47800400F81 /* AppDelegate.m in Sources */,
-				0D07BF0E1E18B85F00400F81 /* HorizontalAnimator.m in Sources */,
 				0D07BEEC1E18B59500400F81 /* Utils+DDHUI.m in Sources */,
 				0D07BEF81E18B75600400F81 /* Reachability.m in Sources */,
 				0D07BEF01E18B63800400F81 /* MessageManager.m in Sources */,
@@ -441,6 +444,7 @@
 				0D07BEEA1E18B59500400F81 /* UIViewController+Navigations.m in Sources */,
 				0D07BEEB1E18B59500400F81 /* Utils.m in Sources */,
 				0D07BF0F1E18B85F00400F81 /* OpenPageAnimator.m in Sources */,
+				0DC5390D1E21C47800A7E0B4 /* UIImage+Helper.m in Sources */,
 				0DC538E11E219CA400A7E0B4 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

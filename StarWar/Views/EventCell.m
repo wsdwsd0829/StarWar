@@ -8,7 +8,8 @@
 
 #import "EventCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+@interface EventCell()
+@end
 @implementation EventCell
 
 -(void)updateUI {
@@ -16,16 +17,9 @@
     self.titleLabel.text = [self.viewModel title]; //@"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";
     self.locationLabel.text = [self.viewModel location];
     self.descLabel.text = [self.viewModel desc];
-    
-    NSString* imageUrl = [self.viewModel imageUrl];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.layer.masksToBounds=YES;
-    if(![imageUrl isEqual: [NSNull null]]) {
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString: imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_nomoon"]];
-    }
 }
 
-
+/*
 -(UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
     UICollectionViewLayoutAttributes* attr = [[super preferredLayoutAttributesFittingAttributes:layoutAttributes] copy];
     [self setNeedsLayout];
@@ -49,5 +43,6 @@
     self.imageWidth.constant = self.contentWidth.constant;
     return attr;
 }
+*/
 
 @end

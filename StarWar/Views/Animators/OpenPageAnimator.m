@@ -6,35 +6,61 @@
 //
 
 #import "OpenPageAnimator.h"
-
+#import "ViewController.h"
 @implementation OpenPageAnimator
 
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.5;
+    return 1;
 }
 
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     //common
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    //UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    ViewController* fromVC = ((ViewController*)[((UINavigationController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey]) topViewController]);
+    
     UIView* containerView = [transitionContext containerView];
     UIView* toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-    
+    UIView* fromView = fromVC.collectionView;
+    fromView.alpha = 1;
     CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
-    CGRect toViewStartFrame = toViewFinalFrame;
-        toViewStartFrame.origin.x = toViewFinalFrame.origin.x + toViewFinalFrame.size.width;
+    
    
     if(self.presenting) {
-        toView.frame = self.delegate.fromFrame;
+        CGRect fromFrame = self.delegate.fromFrame;
+        fromFrame.origin.x = fromView.frame.origin.x;
+        toView.frame = fromFrame;
     }
     [containerView addSubview:toView];
-    
-    [UIView animateWithDuration: [self transitionDuration:transitionContext] animations:^{
+
+    if(toView.frame.origin.y < 66) {
+        //cross disslove;
         toView.frame = toViewFinalFrame;
-    } completion:^(BOOL finished) {
-        [transitionContext completeTransition:YES];
-    }];
-    
+        toView.alpha = 0;
+        [UIView animateWithDuration: [self transitionDuration:transitionContext] animations:^{
+            fromView.alpha = 0;
+            toView.alpha = 1;
+        } completion:^(BOOL finished) {
+            fromView.alpha = 1;
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        CGRect adjustFrame = toView.frame; //???
+        adjustFrame.origin.y -= 20;
+        toView.frame = adjustFrame;
+        [UIView animateKeyframesWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
+                fromView.alpha = 0;
+            }];
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
+
+                toView.frame = toViewFinalFrame;
+            }];
+        } completion:^(BOOL finished) {
+            fromView.alpha = 1;
+            [transitionContext completeTransition:YES];
+        }];
+    }
+
 }
 
 @end

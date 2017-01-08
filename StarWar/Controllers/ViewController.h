@@ -9,6 +9,8 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic) CGRect fromFrame;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 

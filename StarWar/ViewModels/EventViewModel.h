@@ -20,5 +20,6 @@
 -(NSString*) title;
 -(NSString*) desc;
 -(NSString*) imageUrl;
+-(NSString*) phone;
 
 @end

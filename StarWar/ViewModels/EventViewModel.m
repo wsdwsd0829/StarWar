@@ -34,18 +34,32 @@
     return timestamp;
     
 }
+
 -(NSString*) location {
-    return [NSString stringWithFormat:@"%@, %@", self.event.locationLine1, self.event.locationLine2];
+    if(![self.event.locationLine2 isEqual:[NSNull null]] && ![self.event.locationLine1 isEqual:[NSNull null]]) {
+      return [NSString stringWithFormat:@"%@\n%@", self.event.locationLine1, self.event.locationLine2];
+    } else if(![self.event.locationLine1 isEqual:[NSNull null]]){
+         return [NSString stringWithFormat:@"%@", self.event.locationLine1];
+    } else {
+        return @"";
+    }
 }
+
 -(NSString*) title {
     return self.event.title;
 }
+
 -(NSString*) desc {
     return self.event.desc;
 }
+
 -(NSString*) imageUrl {
     return self.event.imageUrl;
 }
+-(NSString*) phone {
+    return self.event.phone;
+}
+
 
 
 @end

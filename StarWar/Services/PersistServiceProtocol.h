@@ -17,7 +17,6 @@ typedef void(^DiskResultHandler)(id responseObject, NSError* error);
 @protocol PersistServiceProtocol <NSObject>
 
 //load async, and handler called on main
--(void)loadDataWithHandler: (DiskResultHandler) handler;
-
+-(void) loadItemsWithFileName:(NSString*) name withHandler: (DiskResultHandler)handler;
 -(BOOL) writeDataToDisk:(NSData*)data withName:(NSString*) name;
 @end

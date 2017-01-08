@@ -7,7 +7,8 @@
 #import "MessageManager.h"
 #import "PereferenceService.h"
 #import "NetworkService.h"
-
+#import "CacheService.h"
+#import "PersistService.h"
 //ViewModels
 #import "EventsViewModel.h"
 
@@ -16,8 +17,8 @@
     //for ui
     NSMutableArray<EventViewModel*>* _items;
     id<NetworkServiceProtocol> networkService;
-    
     id<MessageManagerProtocol> messageManager;
+    id<PersistServiceProtocol> persistService;
 }
 
 @end
@@ -29,6 +30,8 @@
     if (self) {
         networkService = [[NetworkService alloc] init];
         messageManager = [[MessageManager alloc] init];
+        self.cacheService = [[CacheService alloc] init];
+        persistService = [[PersistService alloc] init];
        // [[NSException exceptionWithName:@"Wrong usage" reason:@"Must provide a type of image to load using initWithType:" userInfo:nil] raise];
     }
     return self;
@@ -36,16 +39,21 @@
 
 -(void) loadDataWithHandler: (ViewModelItemsHandler) handler {
     [networkService loadItems:^(NSArray *items, NSError *error) {
+        __block NSArray* returnedItems = [[NSArray alloc] init];
+        NSMutableArray* res = [[NSMutableArray alloc] init];
         if(error) {
-            [self p_handleError:error];
-        } else {
-            NSMutableArray* res = [[NSMutableArray alloc] init];
-           [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [res addObject:[[EventViewModel alloc] initWithEvent:obj]];
+            [persistService loadItemsWithFileName: @"events.json" withHandler: ^(NSArray* results, NSError* err){
+               if(err) {[self p_handleError:err];}
+                returnedItems = results;
             }];
-            self.items = res;
-            handler(items, nil);
+        } else {
+             returnedItems = items;
         }
+        [returnedItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [res addObject:[[EventViewModel alloc] initWithEvent:obj]];
+        }];
+        self.items = res;
+        handler(self.items, nil);
     }];
 }
 

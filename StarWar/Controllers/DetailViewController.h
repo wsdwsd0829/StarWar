@@ -19,11 +19,17 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 @property (nonatomic) EventViewModel* viewModel;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 
 -(void)updateUI;
 @end
