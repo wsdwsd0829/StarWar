@@ -6,12 +6,13 @@
 #import <Foundation/Foundation.h>
 #import "Event.h"
 #import "CacheService.h"
+#import "EventViewModel.h"
 
 typedef void(^ViewModelItemsHandler) (NSArray* items, NSError* err);
 
 @interface EventsViewModel : NSObject
 
-@property (nonatomic) NSArray<Event*>* items;
+@property (nonatomic) NSArray<EventViewModel*>* items;
 @property (nonatomic, copy) void(^updateBlock)();
 
 @property id<CacheServiceProtocol> cacheService;

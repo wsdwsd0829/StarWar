@@ -11,11 +11,10 @@
 //ViewModels
 #import "EventsViewModel.h"
 
-
 @interface EventsViewModel() {
     //private backing stores
     //for ui
-    NSMutableArray<Event*>* _items;
+    NSMutableArray<EventViewModel*>* _items;
     id<NetworkServiceProtocol> networkService;
     
     id<MessageManagerProtocol> messageManager;
@@ -40,13 +39,17 @@
         if(error) {
             [self p_handleError:error];
         } else {
-            self.items = items;
+            NSMutableArray* res = [[NSMutableArray alloc] init];
+           [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [res addObject:[[EventViewModel alloc] initWithEvent:obj]];
+            }];
+            self.items = res;
             handler(items, nil);
         }
     }];
 }
 
--(Event*)previousItemFor:(Event *)item {
+-(EventViewModel*)previousItemFor:(EventViewModel *)item {
     NSInteger index = [self.items indexOfObject: item];
     if(index == 0) {
         return nil;
@@ -54,7 +57,7 @@
     return self.items[index - 1];
 }
 
--(Event*)nextItemFor:(Event *)item {
+-(EventViewModel*)nextItemFor:(EventViewModel *)item {
     NSInteger index = [self.items indexOfObject: item];
     if(index == self.items.count-1) {
         return nil;
@@ -107,23 +110,20 @@
     [messageManager showError:error];
 }
 
-//ui
 -(NSString*) timeLabelForIndex: (NSInteger) index {
-    //NSLog(@"%@", self.items[index].date);
-    return [self.items[index].date description];
-    
+    return [self.items[index] timeLabel];
 }
 -(NSString*) locationForIndex: (NSInteger) index {
-    return [NSString stringWithFormat:@"%@, %@", self.items[index].locationLine1, self.items[index].locationLine2];
+    return [self.items[index] location];
 }
 -(NSString*) titleForIndex:(NSInteger)index {
-    return self.items[index].title;
+    return [self.items[index] title];
 }
 -(NSString*) descForIndex:(NSInteger)index {
-    return self.items[index].desc;
+    return [self.items[index] desc];
 }
 -(NSString*) imageUrlForIndex: (NSInteger)index {
-    return self.items[index].imageUrl;
+    return [self.items[index] imageUrl];
 }
 
 @end

@@ -12,9 +12,4 @@
 
 @interface NetworkService : NSObject <NetworkServiceProtocol, ReachabilityServiceProtocol>
 
-//recent
--(void) loadRecentPhotos: (NetworkResultHandler) handler;
-//interesting
--(void) loadInterestingPhotos: (NetworkResultHandler) handler;
-
 @end

@@ -7,13 +7,14 @@
 //
 
 #import "ViewController.h"
-#import "NetworkService.h"
 #import "EventCell.h"
 #import "EventsViewModel.h"
+#import "DetailViewController.h"
+#import "Utils+DDHUI.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "TestCell.h"
 
 NSString* const EventCellIdentifier = @"EventCell";
+NSString* const NavigationDetailViewControllerIdentifier = @"NavigationDetailViewController";
 
 @interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -28,9 +29,6 @@ NSString* const EventCellIdentifier = @"EventCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.viewModel = [EventsViewModel new];
-
-   //[self.collectionView registerClass: [EventCell class] forCellWithReuseIdentifier:EventCellIdentifier];
-    [self.collectionView registerNib: [UINib nibWithNibName:@"EventCell" bundle:nil] forCellWithReuseIdentifier:EventCellIdentifier];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.layout = [[UICollectionViewFlowLayout alloc] init];
@@ -47,32 +45,30 @@ NSString* const EventCellIdentifier = @"EventCell";
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   // TestCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TestCell" forIndexPath:indexPath];
-//    cell.label.text = @"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";
-    
-    EventCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:EventCellIdentifier forIndexPath:indexPath];
-    cell.timeLabel.text = [self.viewModel timeLabelForIndex:indexPath.row];
-//
-    cell.titleLabel.text = @"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";//[self.viewModel titleForIndex:indexPath.row];
-    cell.locationLabel.text = [self.viewModel locationForIndex:indexPath.row];
-    cell.descLabel.text = [self.viewModel descForIndex:indexPath.row];
-    NSString* imageUrl = [self.viewModel imageUrlForIndex:indexPath.row];
-//    NSLog(@"%f", cell.imageView.frame.size.height);
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    cell.imageView.layer.masksToBounds=YES;
-//
-    if(![imageUrl isEqual: [NSNull null]]) {
-
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString: imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:EventCellIdentifier forIndexPath:indexPath];
+    [self configCell:cell forIndexPath:indexPath];
+        return cell;
+}
+-(void)configCell:(UICollectionViewCell*) cell forIndexPath: (NSIndexPath*) indexPath {
+    if([cell isKindOfClass:[EventCell class]]) {
+        EventCell* eventCell = (EventCell*) cell;
+        eventCell.viewModel = self.viewModel.items[indexPath.row];
+        [eventCell updateUI];
     }
-//
-    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UINavigationController* nvc = [Utils viewControllerWithIdentifier:NavigationDetailViewControllerIdentifier fromStoryBoardNamed:@"Main"];
+    DetailViewController* dvc = ((DetailViewController*)(nvc.topViewController));
+    dvc.viewModel = self.viewModel.items[indexPath.row];
+    //dvc.edgesForExtendedLayout = UIRectEdgeNone;
+    [self presentViewController:nvc animated:YES completion:^{
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

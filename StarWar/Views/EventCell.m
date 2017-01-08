@@ -1,25 +1,29 @@
 //
-//  EventCell.m
+//  TestCell.m
 //  StarWar
 //
-//  Created by Sida Wang on 1/6/17.
+//  Created by Sida Wang on 1/7/17.
 //  Copyright © 2017 Sida Wang. All rights reserved.
 //
 
 #import "EventCell.h"
-@interface EventCell()
-@end
-@implementation EventCell
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-       // self.view = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] firstObject];
-        //self.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return self;
-}
+#import <SDWebImage/UIImageView+WebCache.h>
 
+@implementation EventCell
+
+-(void)updateUI {
+    self.timeLabel.text = [self.viewModel timeLabel];
+    self.titleLabel.text = [self.viewModel title]; //@"rand coej cokskjc oiecj eoijco oidc japei cajdopcjaopjjeojpoc oejcoaijc  pjqoij cdosj cj";
+    self.locationLabel.text = [self.viewModel location];
+    self.descLabel.text = [self.viewModel desc];
+    
+    NSString* imageUrl = [self.viewModel imageUrl];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.layer.masksToBounds=YES;
+    if(![imageUrl isEqual: [NSNull null]]) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString: imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_nomoon"]];
+    }
+}
 
 
 -(UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
@@ -27,15 +31,15 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.contentWidth.constant = 400;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+         self.contentWidth.constant = [UIScreen mainScreen].bounds.size.width;
+    } else {
+        self.contentWidth.constant = [UIScreen mainScreen].bounds.size.width-10/2;
+    }
+    //self.contentWidth.constant = 300;
     CGRect oldFrame = attr.frame;
     oldFrame.size.width = self.contentWidth.constant;
-    CGSize sizeFits = [self sizeThatFits:oldFrame.size];
-    //self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    //NSLog(@"%@", DeviceVersionNames[[SDVersion deviceVersion]] );
-    //BOOL isIphone = [DeviceVersionNames[[SDVersion deviceVersion]] containsString:@"iPhone"];
-    //self.width.constant = screenWidth; //isIphone ? screenWidth : screenWidth/2;
-    
+    //CGSize sizeFits = [self sizeThatFits:oldFrame.size];
     CGSize size = [self systemLayoutSizeFittingSize:oldFrame.size];
     CGRect newFrame = attr.frame;
     newFrame.size.height = size.height;
@@ -45,7 +49,5 @@
     self.imageWidth.constant = self.contentWidth.constant;
     return attr;
 }
-
-
 
 @end

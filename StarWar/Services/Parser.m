@@ -29,6 +29,9 @@
             //NSString *dateString =  @"2014-10-07T07:29:55.850Z";
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+            [dateFormatter setTimeZone:gmt];
+        
             for(id obj in objs) {
                 @autoreleasepool {
                     if([obj isKindOfClass:[NSDictionary class]]) {
