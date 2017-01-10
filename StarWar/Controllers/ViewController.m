@@ -101,14 +101,9 @@ NSString* const DetailViewControllerIdentifier = @"DetailViewController";
 }
 
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    //fromVC: HostViewController, toVC: PageViewController
-    //all properties of self is deallocated.
     if([toVC isKindOfClass: [DetailViewController class]]) {
         OpenPageAnimator* opa = [[OpenPageAnimator alloc] init];
-        opa.delegate = (id<OpenSourceProtocol>)(UINavigationController*)fromVC;//((PageViewController*)toVC).fromCellFrame;
-        //???
-        //po ((ViewController*)(((HostViewController*)fromVC)->tabBarViewController.viewControllers[0])).viewModel (has value)
-        //po self.viewModel  (is nil)
+        opa.delegate = (id<OpenSourceProtocol>)(UINavigationController*)fromVC;//
         opa.presenting = YES;
         return opa;
     }

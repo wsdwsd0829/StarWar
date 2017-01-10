@@ -29,7 +29,6 @@
 @property (nonatomic) EventViewModel* viewModel;
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 
 -(void)updateUI;
 @end

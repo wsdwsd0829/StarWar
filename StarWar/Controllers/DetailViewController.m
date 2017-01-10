@@ -17,12 +17,18 @@
 @property (nonatomic) UIView* dummyTitle;
 @property (nonatomic) UIView* dummyNavTitle;
 
-@property (nonatomic) CGSize labelOffset;
 
-//for label animate
+//for  animate
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewToTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+
 @property (nonatomic) CGFloat maxProgress;
 @property (nonatomic) CGFloat startX;
 @property (nonatomic) CGFloat startY;
+
+@property (nonatomic) CGFloat startViewToTop;
+@property (nonatomic) CGFloat startImageHeight;
 @end
 
 @implementation DetailViewController
@@ -35,15 +41,14 @@
     
     self.transitioningDelegate = self;
 
-    //self.scrollView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
     [self transparentNavigationBar];
     [self updateUI];
+    self.startImageHeight = self.imageHeight.constant;
+    self.startViewToTop = self.viewToTop.constant;
     self.navigationBar.topItem.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     self.dummyNavTitle = self.navigationBar.topItem.titleView;
-    CGFloat maxX = (self.navigationBar.topItem.titleView.center.x - self.titleLabel.center.x);
-    CGFloat maxY = 20;
-    self.labelOffset = CGSizeMake(maxX, maxY);
 }
+
 -(void)transparentNavigationBar {
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationBar.shadowImage = [UIImage new];
@@ -62,6 +67,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)share:(id)sender {
    UIActivityViewController* avc = [[UIActivityViewController alloc] initWithActivityItems:@[self.titleLabel.text, self.timeLabel.text, self.imageView.image, self.locationLabel.text] applicationActivities:nil];
     [self presentViewController:avc animated:YES completion:nil];
@@ -113,24 +119,24 @@
         CGFloat progress = fabs(insetY) / 200;
         self.imageView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(0, insetY), CGAffineTransformMakeScale(1 + progress, 1 + progress));
     } else {
-        CGFloat progress = fabs(insetY) / 300;
+        CGFloat progress = fabs(insetY) / self.startImageHeight;
         if(insetY < self.minHeight) {
-            self.imageHeight.constant = 300*(1-progress);
-        } else if(insetY < 250-44) {
+            self.imageHeight.constant = self.startImageHeight*(1-progress);
+        } else if(insetY < self.startViewToTop-44) {
             self.imgTop.constant = (self.minHeight-insetY) / 1;
-        } else if(250-insetY <= 44 && 250-insetY > 0){
-            self.imageView.alpha = (250 - insetY) / 44;
+        } else if(self.startViewToTop-insetY <= 44 && self.startViewToTop-insetY > 0){
+            self.imageView.alpha = (self.startViewToTop - insetY) / 44;
         }
         CGPoint center = [self.view convertPoint:self.titleLabel.center fromView:self.contentView];
         center.y += insetY;
 
-        if(insetY >= 249.5 && insetY <= 250.5) {
+        if(insetY >= (self.startViewToTop-0.5) && insetY <= (self.startViewToTop+ 0.5)) {
             //titleLabel 's center dertermin max progress
             self.maxProgress = center.y-22; //max y distance to animate
             self.startX = center.x;
             self.startY = center.y;
         }
-        if (insetY-250 > 0 && (insetY-250) < self.maxProgress ) {
+        if (insetY-self.startViewToTop > 0 && (insetY-self.startViewToTop) < self.maxProgress ) {
             if(!self.dummyTitle) {
                 UIView* label = [self.titleLabel snapshotViewAfterScreenUpdates:NO];
                 
@@ -143,11 +149,10 @@
             }
             CGFloat maxX = self.scrollView.bounds.size.width/2 - self.startX;
             CGFloat maxY = self.startY - 22;
-            CGFloat progress = (insetY-250)/self.maxProgress;
+            CGFloat progress = (insetY-self.startViewToTop)/self.maxProgress;
             CGPoint newCenter = self.dummyTitle.center;
-            newCenter.y = self.dummyTitle.center.y - (insetY-250);
-            newCenter.x = self.dummyTitle.center.x + (insetY-250);
-//            self.dummyTitle.center = newCenter;
+            newCenter.y = self.dummyTitle.center.y - (insetY-self.startViewToTop);
+            newCenter.x = self.dummyTitle.center.x + (insetY-self.startViewToTop);
             CGAffineTransform translate = CGAffineTransformTranslate(CGAffineTransformIdentity, maxX*progress, -maxY*progress);
             
             CGAffineTransform scale = CGAffineTransformMakeScale(1 - progress*0.5, 1);
@@ -157,21 +162,15 @@
             UIColor* col = [UIColor colorWithWhite:1 alpha:navColorAlpha];
             UIImage* image = [UIImage imageWithColor:col];
             [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-            
             NSLog(@"progress: %f", progress);
-
-            //self.navigationBar.translucent = NO;
-        } else if ((insetY-250) <= 0) {
+        } else if ((insetY-self.startViewToTop) <= 0) {
             [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        } else if ((insetY-250) > self.maxProgress) {
+        } else if ((insetY-self.startViewToTop) > self.maxProgress) {
             UIColor* col = [UIColor colorWithWhite:1 alpha:1];
             UIImage* image = [UIImage imageWithColor:col];
             [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         }
-            //label.center.y
-            
-        
-        if(insetY < 250) {
+        if(insetY < self.startViewToTop) {
             self.titleLabel.hidden = NO;
             if(self.dummyTitle) {
                 [self.dummyTitle removeFromSuperview];
@@ -179,14 +178,13 @@
             }
         }
     }
-    
 }
+
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if([presented isKindOfClass:[DetailViewController class]]) {
         OpenPageAnimator* opa = [[OpenPageAnimator alloc] init];
         opa.presenting = YES;
         opa.delegate = (id<OpenSourceProtocol>)[(UINavigationController*)presenting topViewController];
-        
         return opa;
     }else {
         return nil;

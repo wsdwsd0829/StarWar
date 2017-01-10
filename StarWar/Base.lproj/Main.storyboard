@@ -222,7 +222,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="TrS-5W-vxK"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="dV3-Ke-Qob"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="900" constant="44" id="dV3-Ke-Qob"/>
                                 </constraints>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CA-z9-zi7">
@@ -275,6 +275,7 @@
                         <outlet property="scrollView" destination="iVt-lo-Xs7" id="iH3-bg-KLK"/>
                         <outlet property="timeLabel" destination="7dz-eu-7DJ" id="5jz-Z9-j2P"/>
                         <outlet property="titleLabel" destination="8RE-Ru-Ns0" id="OF2-Yp-H3P"/>
+                        <outlet property="viewToTop" destination="QWd-3e-uk4" id="IZL-yT-ONi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hs6-v6-TLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
