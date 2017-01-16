@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, ErrorParse) {
-    ErrorParseFailed = 1001
+    ErrorParseFailed = 1001, ErrorParseNilObject = 1002
 };
 
 @protocol ParserProtocol <NSObject>

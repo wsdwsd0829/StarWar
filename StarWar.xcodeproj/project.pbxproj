@@ -29,6 +29,7 @@
 		0D07BF161E18B8AB00400F81 /* NetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF141E18B8AB00400F81 /* NetworkService.m */; };
 		0D07BF1A1E18B8B300400F81 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF181E18B8B300400F81 /* CacheService.m */; };
 		0D07BF311E18D78D00400F81 /* PersistService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D07BF301E18D78D00400F81 /* PersistService.m */; };
+		0D46A2C91E2C897300F08BB1 /* Feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D46A2C81E2C897300F08BB1 /* Feed.json */; };
 		0DC538DE1E2191BC00A7E0B4 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538DD1E2191BC00A7E0B4 /* EventCell.m */; };
 		0DC538E11E219CA400A7E0B4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538E01E219CA400A7E0B4 /* DetailViewController.m */; };
 		0DC538E41E219DF600A7E0B4 /* EventViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC538E31E219DF600A7E0B4 /* EventViewModel.m */; };
@@ -88,6 +89,7 @@
 		0D07BF2F1E18D78D00400F81 /* PersistService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistService.h; sourceTree = "<group>"; };
 		0D07BF301E18D78D00400F81 /* PersistService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistService.m; sourceTree = "<group>"; };
 		0D07BF321E18D79500400F81 /* PersistServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersistServiceProtocol.h; sourceTree = "<group>"; };
+		0D46A2C81E2C897300F08BB1 /* Feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Feed.json; sourceTree = "<group>"; };
 		0DC538DC1E2191BC00A7E0B4 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		0DC538DD1E2191BC00A7E0B4 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		0DC538DF1E219CA400A7E0B4 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				0D07BEC01E18B47800400F81 /* main.m */,
+				0D46A2C81E2C897300F08BB1 /* Feed.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D07BECF1E18B47800400F81 /* LaunchScreen.storyboard in Resources */,
+				0D46A2C91E2C897300F08BB1 /* Feed.json in Resources */,
 				0D07BECC1E18B47800400F81 /* Assets.xcassets in Resources */,
 				0D07BECA1E18B47800400F81 /* Main.storyboard in Resources */,
 			);

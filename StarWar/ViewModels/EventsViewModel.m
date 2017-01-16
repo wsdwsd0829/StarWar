@@ -43,6 +43,7 @@
         NSMutableArray* res = [[NSMutableArray alloc] init];
         if(error) {
             [persistService loadItemsWithFileName: @"events.json" withHandler: ^(NSArray* results, NSError* err){
+                
                if(err) {[self p_handleError:err];}
                 returnedItems = results;
             }];

@@ -66,7 +66,7 @@ NSString* const apiKey = @"d33ef16f7b9d67141aa1f5b164b59101";//@"d5c7df3552b89d1
 
 
 //https://raw.githubusercontent.com/phunware/dev-interview-homework/master/feed.json
-//private method that use apiClient to fetch Data and use parser to get object (can pare async)
+//private method that use apiClient to fetch Data and use parser to get object (can parse async)
 -(void) p_fetchWithParams: (NSDictionary*) params withHandler:(NetworkResultHandler) handler {
     pageNum += 1; //how to deal wich if previous page load fails
     [apiClient fetchWithParams:params withApi: @"phunware/dev-interview-homework/master/feed.json" withHandler:^(NSURLResponse *response, id responseObject, NSError *error) {

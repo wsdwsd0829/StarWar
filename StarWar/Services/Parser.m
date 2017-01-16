@@ -14,8 +14,14 @@
 }
 
 -(void)parseToItemsWith: (id) responseObject withHandler: (void(^)(NSArray* items, NSError* error)) handler {
+    
     NSMutableArray* results = [NSMutableArray new];
     NSError* error;
+    if(!responseObject) {
+        error = [NSError errorWithDomain: kErrorDomainDisk code:ErrorParseNilObject userInfo:@{kErrorDisplayUserInfoKey : @"No data found" }];
+        handler(nil, error);
+        return;
+    }
     id response = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&error];
     if(error != nil) {
         NSError* err = [NSError errorWithDomain:kErrorDomainParse code:ErrorParseFailed userInfo: @{kErrorDisplayUserInfoKey: @"Fail to parse json to array"}];
